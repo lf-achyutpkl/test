@@ -1,0 +1,34 @@
+#-------------------------------
+#  Response formats.
+#-------------------------------
+Response:
+  code:
+    type: integer
+    minimum: 100
+    maximum: 600
+  message:
+    type: string
+
+NotFound:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          allOf:
+            $ref: '#/Response'
+        example:
+          code: 400
+          message: Not Found
+
+BadRequest:
+  content:
+    application/json:
+      schema:
+        type: object
+        properties:
+          allOf:
+            $ref: '#/Response'
+        example:
+          code: 400
+          message: Bad Request

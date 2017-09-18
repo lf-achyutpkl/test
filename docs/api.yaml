@@ -1,0 +1,28 @@
+openapi: 3.0.0
+info:
+  title: Backbone Auth Api
+  description: Authentication module for Backbone.
+  version: 0.0.1
+servers:
+  - url: 'http://dev.backbone.lftechnology.com/'
+    description: 'Authentication server for dev'
+paths:
+  allOf:
+    - $ref: './endpoints/users.yaml#/users'
+
+components:
+  schemas:
+    User:
+      $ref: './schemas/user.yaml#/User'
+
+securityDefinitions:
+  BearerAuth:
+    description: |
+      Bearer: xxxxxx.yyyyyyy.zzzzzz
+    type: apiKey
+    in: header
+    name: Authorization
+
+
+security:
+  - BearerAuth: []

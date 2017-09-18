@@ -1,0 +1,111 @@
+users:
+  /users:
+    get:
+      summary: Returns a list of users.
+      tags:
+        - users
+      description: Optional extended description in CommonMark or HTML.
+      responses:
+        '200':
+          description: An array of user object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Users'
+    
+    post:
+      summary: Create new user.
+      tags:
+        - users
+      requestBody:
+        required: true
+        content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/User'
+      responses:
+        '201':
+          description: Successfully created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          $ref: '#/components/schemas/BadRequest'
+
+  /users/{id}:
+    get:
+      summary: Get a user by ID.
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          description: The id of the user to retrive.
+          required: true
+          schema: 
+            type: string
+      responses:
+        '200':
+          description: An object of a user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+
+    put:
+      summary: Update a user by ID.
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          description: The id of the user to update.
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+            'application/json':
+              schema:
+                $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: An updated object of a user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+    
+    delete:
+      summary: Delete a user by ID.
+      tags:
+        - users
+      parameters:
+        - name: id
+          in: path
+          description: The id of the user to delete
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successfully deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          $ref: '#/components/schemas/NotFound'
+          
+components:
+  schemas:
+    User:
+      $ref: '../schemas/user.yaml#/User'
+    Users:
+      $ref: '../schemas/users.yaml#/Users'
+    NotFound:
+      $ref: '../schemas/responses.yaml#/NotFound'
+    BadRequest:
+      $ref: '../schemas/responses.yaml#/BadRequest'
